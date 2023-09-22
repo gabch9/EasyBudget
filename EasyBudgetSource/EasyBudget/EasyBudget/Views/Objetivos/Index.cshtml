@@ -1,0 +1,70 @@
+﻿@model IEnumerable<EasyBudget.Models.ObjetivosViewModel>
+
+@{
+	ViewBag.Title = "Lista Objetivos";
+}
+
+<div class="row">
+	<div class="col-sm-12 col-md-12">
+		<a href="@Url.Action("Create")" class="btn btn-info float-right">
+			<span class="fa fa-plus-circle"></span> Nuevo
+		</a>
+	</div>
+	<div class="col-sm-12 col-md-12">
+		<div class="card mt-2">
+			<div class="card-body">
+				<div class="table-responsive text-center">
+					<table class="table table-hover">
+						<thead class="thead-light">
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.ObjetivoFechaInicio)
+								</th>
+								<th>
+									@Html.DisplayNameFor(model => model.ObjetivoFechaFin)
+								</th>
+								<th>
+									@Html.DisplayNameFor(model => model.ObjetivoDescripcion)
+								</th>
+								<th>
+									@Html.DisplayNameFor(model => model.ObjetivoValor)
+								</th>
+								<th>
+									@Html.DisplayNameFor(model => model.ObjetivoCompleto)
+								</th>
+								<th></th>
+							</tr>
+						</thead>
+						@foreach (var item in Model)
+						 {
+							<tbody>
+								<tr>
+									<td>
+										@Html.DisplayFor(modelItem => item.ObjetivoFechaInicio)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.ObjetivoFechaFin)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.ObjetivoDescripcion)
+									</td>
+
+									<td>
+										@Html.DisplayFor(modelItem => item.ObjetivoValor)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.ObjetivoCompleto)
+									</td>
+									<td>
+										<a href="@Url.Action("Edit", new { id = item.ObjetivoId })" class="btn btn-info btn-sm">Editar</a>
+										<a href="@Url.Action("Delete", new { id = item.ObjetivoId })" class="btn btn-danger btn-sm mt-1">Eliminar</a>
+									</td>
+								</tr>
+							</tbody>
+						 }
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,95 @@
+﻿@model EasyBudget.Models.TransaccionViewModel
+
+@{
+	ViewBag.Title = "Editar Transaccion";
+}
+
+<div class="row">
+	<div class="col-sm-12 col-md-12">
+		<div class="card mt-2">
+			<div class="card-body">
+				@using (Html.BeginForm())
+				{
+					@Html.AntiForgeryToken()
+
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+					@Html.HiddenFor(model => model.TransaccionId)
+
+					@Html.HiddenFor(model => model.TransaccionFechaModificacion, new { @Value = System.DateTime.Now.ToString("D") })
+
+					<div class="col-sm-12 col-md-5 alinear">
+						<div class="clearfix"></div>
+						<div class="form-group">
+							@Html.LabelFor(model => model.TransaccionFecha, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.TransaccionFecha, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.TransaccionFecha, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.TransaccionDescripcion, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.TransaccionDescripcion, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.TransaccionDescripcion, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.FkIdTipoTransaccion, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.FkIdTipoTransaccion, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.FkIdTipoTransaccion, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.TransaccionValor, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.TransaccionValor, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.TransaccionValor, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-12 col-md-5 alinear">
+						<div class="clearfix"></div>
+						<div class="form-group">
+							@Html.LabelFor(model => model.FkIdComercio, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.FkIdComercio, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.FkIdComercio, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.FkIdPersona, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.FkIdPersona, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.FkIdPersona, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.FkIdComprobante, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.FkIdComprobante, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.FkIdComprobante, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="float-right">
+							<input type="submit" value="Guardar" class="btn btn-info btn-md" />
+							<a href="@Url.Action("Details", new { id = Model.TransaccionId })" class="btn btn-danger btn-md">Cancelar</a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}

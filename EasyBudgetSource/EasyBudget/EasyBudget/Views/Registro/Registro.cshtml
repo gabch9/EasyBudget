@@ -1,0 +1,129 @@
+﻿@model EasyBudget.Models.RegistroViewModel
+
+@{
+	ViewBag.Title = "Registro";
+	Layout = "~/Views/Shared/_Login.cshtml";
+}
+
+<div class="col-sm-12 col-md-6 mx-auto">
+	<div class="card mt-2">
+		<div class="card-header bg-color">
+			<h4>Resgistro</h4>
+		</div>
+		<div class="card-body">
+			@using (Html.BeginForm())
+			{
+				@Html.AntiForgeryToken()
+
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+				<div class="col-sm-12 col-md-5 alinear">
+					<div class="form-group">
+						@Html.LabelFor(model => model.persona.PersonaNombre, htmlAttributes: new { @class = "control-label" })
+						<div class="col-md-12">
+							@Html.EditorFor(model => model.persona.PersonaNombre, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.persona.PersonaNombre, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.persona.PersonaApellido, htmlAttributes: new { @class = "control-label" })
+						<div class="col-md-12">
+							@Html.EditorFor(model => model.persona.PersonaApellido, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.persona.PersonaApellido, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.persona.PersonaFechaNacimiento, htmlAttributes: new { @class = "control-label" })
+						<div class="col-md-12">
+							@Html.EditorFor(model => model.persona.PersonaFechaNacimiento, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.persona.PersonaFechaNacimiento, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.persona.PersonaOcupacion, htmlAttributes: new { @class = "control-label" })
+						<div class="col-md-12">
+							@Html.EditorFor(model => model.persona.PersonaOcupacion, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.persona.PersonaOcupacion, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.persona.PersonaPais, htmlAttributes: new { @class = "control-label" })
+						<div class="col-md-12">
+							@Html.EditorFor(model => model.persona.PersonaPais, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.persona.PersonaPais, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12 col-md-5 alinear">
+					<div class="form-group">
+						@Html.LabelFor(model => model.presupuesto.Salario, htmlAttributes: new { @class = "control-label" })
+						<div class="col-md-12">
+							@Html.EditorFor(model => model.presupuesto.Salario, new { htmlAttributes = new { @class = "form-control", @placeholder = "₡" } })
+							@Html.ValidationMessageFor(model => model.presupuesto.Salario, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.users.UserName, htmlAttributes: new { @class = "control-label" })
+						<div class="col-md-12">
+							@Html.EditorFor(model => model.users.UserName, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.users.UserName, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+					<div class="form-group">
+						@Html.LabelFor(model => model.users.Password, htmlAttributes: new { @class = "control-label" })
+						<div class="col-md-12">
+							@Html.EditorFor(model => model.users.Password, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.users.Password, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+					<div class="form-group">
+						@Html.LabelFor(model => model.users.ConfirmLoginPassword, htmlAttributes: new { @class = "control-label" })
+						<div class="col-md-12">
+							@Html.EditorFor(model => model.users.ConfirmLoginPassword, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.users.ConfirmLoginPassword, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<div class="float-right">
+							<input type="submit" value="Registrarse" id="submitButton" class="btn btn-info" />
+							<a href="@Url.Action("Index","Home")" class="btn btn-danger btn-md">Cancelar</a>
+						</div>
+					</div>
+					<div class="col-12 text-center" id="errorField"></div>
+				</div>
+			}
+		</div>
+	</div>
+</div>
+
+<script>
+
+	$('#submitButton').click(function () {
+		$.ajax({
+			contentType: 'application/json; charset=utf-8',
+			cache: false,
+			data: $('form').serializeArray(),
+			url: "/Cuenta/Registro",
+			type: "POST",
+			success: function (data) {
+				alert("algo");
+				console.log(data);
+			},
+			error: function (data) {
+				console.log("Error");
+				console.log(data);
+			}
+		});
+	});
+
+</script>

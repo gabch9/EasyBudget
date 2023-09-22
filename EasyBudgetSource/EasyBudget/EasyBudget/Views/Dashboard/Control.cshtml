@@ -1,0 +1,100 @@
+﻿
+@{
+	ViewBag.Title = "Administrar Presupuesto";
+
+	List<object> listaTransacciones = ViewBag.Transacciones;
+	List<object> ObjetivoList = ViewBag.Objetivo;
+}
+<hr />
+
+<div class="card w-100">
+	<div class="card-body">
+		<div class="d-flex ml-80px">
+			<div id="oculto" class="col-md-4 col-sm-4">
+				<div class="shadow p-4 mb-4 rounded-circle bg-objt" id="square">
+					<h3 class="txt">Objetivos</h3>
+					<div class="oculto">
+						<div class="d-flex">
+							<a href="@Url.Action("Index","Objetivos")" class="btn btn-info btn-sm mr-1" id="p-26px"><span class="fa fa-eye"></span> Ver</a>
+							<a href="@Url.Action("Create","Objetivos")" class="btn btn-info btn-sm"><span class="fa fa-plus-circle"></span> Nuevo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="oculto" class="col-md-4 col-sm-4">
+				<div class="shadow p-4 mb-4 rounded-circle bg-budget" id="square">
+					<h3 class="txt">Comercios</h3>
+					<div class="oculto">
+						<div class="d-flex">
+							<a href="@Url.Action("Index","Comercio")" class="btn btn-info btn-sm mr-1" id="p-26px"><span class="fa fa-eye"></span> Ver</a>
+							<a href="@Url.Action("Create","Comercio")" class="btn btn-info btn-sm"><span class="fa fa-plus-circle"></span> Nuevo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="oculto" class="col-md-4 col-sm-4">
+				<div class="shadow p-4 mb-4 rounded-circle bg-trns" id="square">
+					<h3 class="txt">Transacciones</h3>
+					<div class="oculto">
+						<div class="d-flex">
+							<a href="@Url.Action("Index","Transaccion")" class="btn btn-info btn-sm mr-1" id="p-26px"><span class="fa fa-eye"></span> Ver</a>
+							<a href="@Url.Action("Create","Transaccion")" class="btn btn-info btn-sm"><span class="fa fa-plus-circle"></span> Nuevo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+
+		<div class="col-md-12 col-sm-12">
+			<!--Tabla de Balance de Presupuesto-->
+			<div class="col-md-7 col-sm-12 alinear">
+				<h3>Transacciones</h3>
+				<div class="table-responsive text-center">
+					<table class="table table-hover">
+						<thead class="thead-light" id="tablaPresupuesto">
+							<tr>
+								<th>Fecha</th>
+								<th>Descripcion</th>
+								<th>Valor</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							@foreach (BackEnd.Model.TRANSACCIONE item in listaTransacciones)
+							{
+								<tr>
+									<td>@Html.DisplayFor(modelItem => item.TransaccionFecha)</td>
+									<td>@Html.DisplayFor(modelItem => item.TransaccionDescripcion)</td>
+									<td>₡ @Html.DisplayFor(modelItem => item.TransaccionValor)</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<!--Lista de Objetivos por completar-->
+			<div class="col-md-4 col-sm-12 alinear">
+				<div class="card">
+					<div class="card-header"><h5><b>Objetivos por completar</b></h5></div>
+                    <div class="list-group">
+                        @foreach (EasyBudget.Models.ObjetivosViewModel item in ObjetivoList)
+                        {
+                            <a href="#" class="list-group-item list-group-item-action">@item.ObjetivoDescripcion</a>
+                            @item.ObjetivoValor;
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:@item.PorcentajeCompletado%">
+                                    @item.PorcentajeCompletado
+                                </div>
+                            </div>
+                        }
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

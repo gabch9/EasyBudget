@@ -1,0 +1,33 @@
+﻿@model EasyBudget.Models.PersonasViewModel
+
+@{
+	ViewBag.Title = "Cuenta";
+	var idP = new EasyBudget.Models.PresupuestoViewModel();
+}
+<hr />
+
+<div class="card w-100">
+	<div class="card-body">
+		<div class="col-md-7 col-sm-8 alinear">
+			<h2>@Html.DisplayFor(model => model.PersonaNombre) @Html.DisplayFor(model => model.PersonaApellido)</h2>
+			<hr />
+			<p><b>Fecha de Nacimineto:</b> @Html.DisplayFor(model => model.PersonaFechaNacimiento)</p>
+			<p><b>Ocupaci&oacute;n:</b> @Html.DisplayFor(model => model.PersonaOcupacion)</p>
+			<p><b>Pa&Iacute;s:</b> @Html.DisplayFor(model => model.PersonaPais)</p>
+		</div>
+		<div class="col-md-4 col-sm-3 alinear">
+			<div class="card-header">
+				<h4>Configuraci&oacute;n de Cuenta</h4>
+			</div>
+			<div class="list-group">
+				<a  href="@Url.Action("Edit", new { id = Model.PersonaId })" class="list-group-item list-group-item-action">Editar Informaci&oacute;n Personal</a>
+				<a href="@Url.Action("Edit","Presupuesto", new {id = ViewBag.Presupuesto.PresupuestoId })" class="list-group-item list-group-item-action">Editar Presupuesto</a>
+				<a href="@Url.Action("Create","Comercio")" class="list-group-item list-group-item-action">Agregar Comercio</a>
+			</div>
+			<div class="card-body">
+				<h4>  </h4>
+			</div>
+		</div>
+	</div>
+</div>
+

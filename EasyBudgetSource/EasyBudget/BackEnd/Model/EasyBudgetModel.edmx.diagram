@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d1458eabbb7c4fb99b479d282a06166d" Name="Diagram1" ZoomLevel="64" ShowGrid="false" DisplayType="true">
+        <EntityTypeShape EntityType="EasyBudgetModel.COMPROBANTE" Width="1.5" PointX="10.625" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyBudgetModel.LOGIN" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyBudgetModel.PERSONA" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyBudgetModel.ROLE" Width="1.5" PointX="0.625" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyBudgetModel.TIPOOBJETIVO" Width="1.5" PointX="6.875" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyBudgetModel.TIPOTRANSACCION" Width="1.5" PointX="10.625" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="EasyBudgetModel.FK__COMPROBAN__FkPer__4316F928" />
+        <AssociationConnector Association="EasyBudgetModel.FK__PERSONAS__FkLogi__398D8EEE" />
+        <AssociationConnector Association="EasyBudgetModel.LOGINSInROLES" />
+        <EntityTypeShape EntityType="EasyBudgetModel.COMERCIO" Width="1.5" PointX="7.75" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="EasyBudgetModel.FK_COMERCIOS_PERSONAS" />
+        <EntityTypeShape EntityType="EasyBudgetModel.PRESUPUESTO" Width="1.5" PointX="5.125" PointY="9.5" IsExpanded="true" />
+        <AssociationConnector Association="EasyBudgetModel.FK_PRESUPUESTO_PERSONAS" />
+        <EntityTypeShape EntityType="EasyBudgetModel.OBJETIVO" Width="1.5" PointX="6.875" PointY="3.75" />
+        <AssociationConnector Association="EasyBudgetModel.FK_OBJETIVO_PERSONAS" />
+        <AssociationConnector Association="EasyBudgetModel.FK_OBJETIVO_TIPOOBJETIVO" />
+        <EntityTypeShape EntityType="EasyBudgetModel.TRANSACCIONE" Width="2.75" PointX="10.625" PointY="7.625" />
+        <AssociationConnector Association="EasyBudgetModel.FK_TRANSACCIONES_COMERCIOS" />
+        <AssociationConnector Association="EasyBudgetModel.FK_TRANSACCIONES_COMPROBANTES" />
+        <AssociationConnector Association="EasyBudgetModel.FK_TRANSACCIONES_PERSONAS" />
+        <AssociationConnector Association="EasyBudgetModel.FK_TRANSACCIONES_TIPOTRANSACCION" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

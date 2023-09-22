@@ -1,0 +1,36 @@
+﻿@model EasyBudget.Models.ComprobanteViewModel
+
+@{
+	ViewBag.Title = "Detalles";
+}
+
+<div class="row">
+	<div class="col-sm-12 col-md-12">
+		<div class="card mt-2">
+			<div class="card-body">
+				<h3>Informaci&oacute;n:</h3>
+				<div class="d-inline-flex p-3 col-12">
+					<div class="p-2">
+						<strong>@Html.DisplayNameFor(model => model.ComprobanteUrl):</strong>
+					</div>
+
+					<div class="p-2">
+						@Html.DisplayFor(model => model.ComprobanteUrl)
+					</div>
+				</div>
+				<div class="d-inline-flex p-3 col-12">
+					<div class="p-2">
+						<strong>@Html.DisplayNameFor(model => model.FkPersonaId):</strong>
+					</div>
+					<div class="p-2">
+						@Html.DisplayFor(model => model.FkPersonaId)
+					</div>
+				</div>
+				<p class="float-right">
+					<a href="@Url.Action("Edit", new { id = Model.ComprobanteId })" class="btn btn-primary btn-md">Editar</a>
+					<a href="@Url.Action("Index")" class="btn btn-light btn-md">Regresar</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

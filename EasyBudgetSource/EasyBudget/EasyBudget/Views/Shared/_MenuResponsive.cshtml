@@ -1,0 +1,115 @@
+﻿<header>
+	<div class="bar-user">
+		<span id="button-menu" class="fa fa-bars"></span>
+		@if (User.Identity.IsAuthenticated)
+		{
+			<a class="nav-link float-right" style="color:white;">¡Bienvenido, @Session["userName"]!</a>
+		}
+	</div>
+	<div class="topbar">
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top justify-content-between">
+			@Html.ActionLink("Easy Budget", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+			<ul class="navbar-nav">
+				@if (!User.Identity.IsAuthenticated)
+				{
+					<li class="nav-item"><a class="nav-link" href="#section1"><span class="fa fa-home icon-menu"></span> Inicio</a></li>
+					<li class="nav-item"><a class="nav-link" href="#section2"><span class="fa fa-bookmark icon-menu"></span> About</a></li>
+					<li class="nav-item"><a class="nav-link" href="#section3"><span class="fa fa-users icon-menu"></span> Contacto</a></li>
+
+					<li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Login")"><span class="fa fa-sign-in icon-menu"></span>Iniciar Sesion</a></li>
+					<li class="nav-item"><a class="nav-link" href="@Url.Action("Registro", "Registro")">Registrarse</a></li>
+				}
+				else
+				{
+					<li class="nav-item"><a class="nav-link">¡Bienvenido, @Session["userName"]!</a></li>
+					<li class="nav-item"><a class="nav-link" href="@Url.Action("Logout", "Login")"><span class="fa fa-sign-out icon-menu"></span>Cerrar Sesión</a></li>
+				}
+			</ul>
+		</nav>
+	</div>
+	<nav class="navegacion">
+		<ul class="menu">
+			<!-- TITULAR -->
+			<li class="title-menu">Easy Budget</li>
+
+			@if (User.Identity.IsAuthenticated)
+			{
+				<li>
+					<a href="@Url.Action("Create", "Transaccion")" class="btn btn-info btn-block">
+						<span class="fa fa-plus-circle icon-menu"></span> Nueva Transaccion
+					</a>
+				</li>
+			}
+
+			<!-- MENU ITEMS -->
+			<li><a href="@Url.Action("Index", "Home")"><span class="fa fa-home icon-menu"></span>Inicio</a></li>
+
+
+			@if (User.Identity.IsAuthenticated)
+			{
+				<li class="menusection">Principal</li>
+				<li><a href="@Url.Action("Resumen", "Dashboard")"><span class="fa fa-line-chart icon-menu"></span>Resumen</a></li>
+				<li><a href="@Url.Action("Control", "Dashboard")"><span class="fa fa-calculator icon-menu"></span>Administrar Presupuesto</a></li>
+				<li><a href="@Url.Action("Perfil", "Persona")"><span class="fa fa-user-circle-o icon-menu"></span>Cuenta</a></li>
+			}
+			else if (User.IsInRole("Administrador"))
+			{
+				<li class="menusection">Mantenimientos</li>
+				<li><a href="@Url.Action("Index", "Persona")"><span class="fa fa-close icon-menu"></span>Personas</a></li>
+				<li><a href="@Url.Action("Index", "Comercio")"><span class="fa fa-close icon-menu"></span>Comercios</a></li>
+				<li><a href="@Url.Action("Index", "Comprobante")"><span class="fa fa-close icon-menu"></span>Comprobantes</a></li>
+			}
+
+			@if (User.Identity.IsAuthenticated)
+			{
+				<li><a href="@Url.Action("Logout", "Login")"><span class="fa fa-sign-out icon-menu"></span>Cerrar Sesión</a></li>
+			}
+			else
+			{
+				<li><a href="@Url.Action("Index", "Login")"><span class="fa fa-sign-in icon-menu"></span>Iniciar Sesion</a></li>
+				<li><a href="@Url.Action("Registro", "Registro")">Registrarse</a></li>
+			}
+		</ul>
+	</nav>
+</header>
+
+<script>
+	$(document).ready(function () {
+
+		// MOSTRANDO Y OCULTANDO MENU
+		$('#button-menu').click(function () {
+			if ($('#button-menu').attr('class') == 'fa fa-bars') {
+
+				$('.navegacion').css({ 'width': '100%', 'background': 'rgba(0,0,0,.5)' }); // Mostramos al fondo transparente
+				$('#button-menu').removeClass('fa fa-bars').addClass('fa fa-close'); // Agregamos el icono X
+				$('.navegacion .menu').css({ 'left': '0px' }); // Mostramos el menu
+
+			} else {
+
+				$('.navegacion').css({ 'width': '0%', 'background': 'rgba(0,0,0,.0)' }); // Ocultamos el fonto transparente
+				$('#button-menu').removeClass('fa fa-close').addClass('fa fa-bars'); // Agregamos el icono del Menu
+				$('.navegacion .submenu').css({ 'left': '-320px' }); // Ocultamos los submenus
+				$('.navegacion .menu').css({ 'left': '-320px' }); // Ocultamos el Menu
+
+			}
+		});
+
+		// MOSTRANDO SUBMENU
+		$('.navegacion .menu > .item-submenu a').click(function () {
+
+			var positionMenu = $(this).parent().attr('menu'); // Buscamos el valor del atributo menu y lo guardamos en una variable
+			console.log(positionMenu);
+
+			$('.item-submenu[menu=' + positionMenu + '] .submenu').css({ 'left': '0px' }); // Mostramos El submenu correspondiente
+
+		});
+
+		// OCULTANDO SUBMENU
+		$('.navegacion .submenu li.go-back').click(function () {
+
+			$(this).parent().css({ 'left': '-320px' }); // Ocultamos el submenu
+
+		});
+
+	});
+</script>

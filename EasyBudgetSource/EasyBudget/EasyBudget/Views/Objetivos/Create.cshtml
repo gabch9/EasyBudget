@@ -1,0 +1,85 @@
+﻿@model EasyBudget.Models.ObjetivosViewModel
+
+@{
+	ViewBag.Title = "Nuevo Objetivo";
+}
+
+<div class="row">
+	<div class="col-sm-12 col-md-12">
+		<div class="card mt-2">
+			<div class="card-body">
+				@using (Html.BeginForm())
+				{
+					@Html.AntiForgeryToken()
+
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+					@Html.HiddenFor(model => model.ObjetivoFechaModificacion, new { @Value = System.DateTime.Now.ToString("D") })
+
+					<div class="col-sm-12 col-md-5 alinear">
+						<div class="clearfix"></div>
+						<div class="form-group">
+							@Html.LabelFor(model => model.ObjetivoFechaInicio, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.ObjetivoFechaInicio, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.ObjetivoFechaInicio, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.ObjetivoDescripcion, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.ObjetivoDescripcion, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.ObjetivoDescripcion, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.FkTipoObjetivoId, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.DropDownListFor(model => model.FkTipoObjetivoId, new SelectList(Model.TipoObjetivo, "TipoObjetivoId", "TipoObjetivoDescripcion"), " Seleccionar Tipo ", new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.FkTipoObjetivoId, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-5 alinear">
+						<div class="clearfix"></div>
+						<div class="form-group">
+							@Html.LabelFor(model => model.ObjetivoFechaFin, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.ObjetivoFechaFin, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.ObjetivoFechaFin, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group">
+							@Html.LabelFor(model => model.ObjetivoValor, htmlAttributes: new { @class = "control-label" })
+							<div class="col-md-10">
+								@Html.EditorFor(model => model.ObjetivoValor, new { htmlAttributes = new { @class = "form-control", @placeholder = "₡" } })
+								@Html.ValidationMessageFor(model => model.ObjetivoValor, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-check-inline">
+							<div class="checkbox">
+								@Html.CheckBoxFor(model => model.ObjetivoCompleto, new { htmlAttributes = new { @class = "form-check-input" } })
+								@Html.ValidationMessageFor(model => model.ObjetivoCompleto, "", new { @class = "text-danger" })
+							</div>
+							@Html.LabelFor(model => model.ObjetivoCompleto, htmlAttributes: new { @class = "form-check-label ml-3" })
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12">
+						<div class="float-right">
+							<input type="submit" value="Guardar" class="btn btn-primary btn-md" />
+							<a href="@Url.Action("Index")" class="btn btn-danger btn-md">Cancelar</a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}

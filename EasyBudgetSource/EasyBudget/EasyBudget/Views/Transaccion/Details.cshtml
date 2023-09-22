@@ -1,0 +1,99 @@
+﻿@model EasyBudget.Models.TransaccionViewModel
+
+@{
+	ViewBag.Title = "Detalles";
+}
+
+<div class="row">
+	<div class="col-sm-12 col-md-12">
+		<div class="card mt-2">
+			<div class="card-body">
+				<h3>Informaci&oacute;n:</h3>
+				<div class="d-inline-flex p-3 col-12">
+					<div class="p-2">
+						<strong>
+							@Html.DisplayNameFor(model => model.TransaccionDescripcion)
+						</strong>
+					</div>
+					<div class="p-2">
+						@Html.DisplayFor(model => model.TransaccionDescripcion)
+					</div>
+				</div>
+				<div class="d-inline-flex p-3 col-12">
+					<div class="p-2">
+						<strong>
+							@Html.DisplayNameFor(model => model.TransaccionValor)
+						</strong>
+					</div>
+					<div class="p-2">
+						₡ @Html.DisplayFor(model => model.TransaccionValor)
+					</div>
+				</div>
+				<div class="d-inline-flex p-3 col-12">
+					<div class="p-2">
+						<strong>
+							@Html.DisplayNameFor(model => model.TransaccionFecha)
+						</strong>
+					</div>
+					<div class="p-2">
+						@Html.DisplayFor(model => model.TransaccionFecha)
+					</div>
+				</div>
+				<div class="d-inline-flex p-3 col-12">
+					<div class="p-2">
+						<strong>
+							@Html.DisplayNameFor(model => model.TransaccionFechaModificacion)
+						</strong>
+					</div>
+					<div class="p-2">
+						@Html.DisplayFor(model => model.TransaccionFechaModificacion)
+					</div>
+				</div>
+				<div class="d-inline-flex p-3 col-12">
+					<div class="p-2">
+						<strong>
+							@Html.DisplayNameFor(model => model.FkIdComercio)
+						</strong>
+					</div>
+					<div class="p-2">
+						@Html.DisplayFor(model => model.FkIdComercio)
+					</div>
+				</div>
+				<div class="d-inline-flex p-3 col-12">
+					<div class="p-2">
+						<strong>
+							@Html.DisplayNameFor(model => model.FkIdPersona)
+						</strong>
+					</div>
+					<div class="p-2">
+						@Html.DisplayFor(model => model.FkIdPersona)
+					</div>
+				</div>
+				<div class="d-inline-flex p-3 col-12">
+					<div class="p-2">
+						<strong>
+							@Html.DisplayNameFor(model => model.FkIdComprobante)
+						</strong>
+					</div>
+					<div class="p-2">
+						@Html.DisplayFor(model => model.FkIdComprobante)
+					</div>
+				</div>
+				<div class="d-inline-flex p-3 col-12">
+					<div class="p-2">
+						<strong>
+							@Html.DisplayNameFor(model => model.FkIdTipoTransaccion)
+						</strong>
+					</div>
+					<div class="p-2">
+						@Html.DisplayFor(model => model.FkIdTipoTransaccion)
+					</div>
+				</div>
+				<p class="float-right">
+					<a href="@Url.Action("Edit", new { id = Model.TransaccionId })" class="btn btn-info btn-md">Editar</a>
+					<a href="@Url.Action("Index")" class="btn btn-light btn-md">Regresar</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

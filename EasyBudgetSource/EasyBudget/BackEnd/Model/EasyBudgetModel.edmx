@@ -1,0 +1,795 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EasyBudgetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="COMERCIOS">
+          <Key>
+            <PropertyRef Name="ComercioId" />
+          </Key>
+          <Property Name="ComercioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FkPersonaId" Type="int" Nullable="false" />
+          <Property Name="ComercioNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ComercioUbicacion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="COMPROBANTES">
+          <Key>
+            <PropertyRef Name="ComprobanteId" />
+          </Key>
+          <Property Name="ComprobanteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ComprobanteUrl" Type="varchar" MaxLength="250" />
+          <Property Name="FkPersonaId" Type="int" />
+        </EntityType>
+        <EntityType Name="LOGINS">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginUsername" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="LoginPassword" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LOGINSInROLES">
+          <Key>
+            <PropertyRef Name="Login_LoginId" />
+            <PropertyRef Name="Role_RoleId" />
+          </Key>
+          <Property Name="Login_LoginId" Type="int" Nullable="false" />
+          <Property Name="Role_RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OBJETIVO">
+          <Key>
+            <PropertyRef Name="ObjetivoId" />
+          </Key>
+          <Property Name="ObjetivoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FkTipoObjetivoId" Type="int" Nullable="false" />
+          <Property Name="FkPersonaId" Type="int" Nullable="false" />
+          <Property Name="ObjetivoFechaInicio" Type="datetime" Nullable="false" />
+          <Property Name="ObjetivoFechaFin" Type="datetime" Nullable="false" />
+          <Property Name="ObjetivoDescripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ObjetivoCompleto" Type="bit" Nullable="false" />
+          <Property Name="ObjetivoValor" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ObjetivoFechaModificacion" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PERSONAS">
+          <Key>
+            <PropertyRef Name="PersonaId" />
+          </Key>
+          <Property Name="PersonaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonaNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PersonaApellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PersonaFechaNacimiento" Type="date" Nullable="false" />
+          <Property Name="PersonaOcupacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PersonaPais" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="FkLoginId" Type="int" />
+        </EntityType>
+        <EntityType Name="PRESUPUESTO">
+          <Key>
+            <PropertyRef Name="PresupuestoId" />
+          </Key>
+          <Property Name="PresupuestoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FkPersonaId" Type="int" Nullable="false" />
+          <Property Name="Salario" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Mes" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Año" Type="int" Nullable="false" />
+          <Property Name="Dia" Type="varchar" MaxLength="10" />
+          <Property Name="SalarioInicial" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ROLES">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TIPOOBJETIVO">
+          <Key>
+            <PropertyRef Name="TipoObjetivoId" />
+          </Key>
+          <Property Name="TipoObjetivoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoObjetivoDescripcion" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TIPOTRANSACCION">
+          <Key>
+            <PropertyRef Name="TipoTransaccionId" />
+          </Key>
+          <Property Name="TipoTransaccionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransaccionDescripcion" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="TRANSACCIONES">
+          <Key>
+            <PropertyRef Name="TransaccionId" />
+          </Key>
+          <Property Name="TransaccionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransaccionDescripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TransaccionValor" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TransaccionFecha" Type="datetime" Nullable="false" />
+          <Property Name="TransaccionFechaModificacion" Type="datetime" Nullable="false" />
+          <Property Name="FkIdPersona" Type="int" Nullable="false" />
+          <Property Name="FkIdComercio" Type="int" />
+          <Property Name="FkIdComprobante" Type="int" Nullable="false" />
+          <Property Name="FkIdTipoTransaccion" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__COMPROBAN__FkPer__4316F928">
+          <End Role="PERSONAS" Type="Self.PERSONAS" Multiplicity="0..1" />
+          <End Role="COMPROBANTES" Type="Self.COMPROBANTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONAS">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="COMPROBANTES">
+              <PropertyRef Name="FkPersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PERSONAS__FkLogi__398D8EEE">
+          <End Role="LOGINS" Type="Self.LOGINS" Multiplicity="0..1" />
+          <End Role="PERSONAS" Type="Self.PERSONAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOGINS">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="PERSONAS">
+              <PropertyRef Name="FkLoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMERCIOS_PERSONAS">
+          <End Role="PERSONAS" Type="Self.PERSONAS" Multiplicity="1" />
+          <End Role="COMERCIOS" Type="Self.COMERCIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONAS">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="COMERCIOS">
+              <PropertyRef Name="FkPersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_LoginRoles_dbo_LOGINS_Login_LoginId">
+          <End Role="LOGINS" Type="Self.LOGINS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LOGINSInROLES" Type="Self.LOGINSInROLES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOGINS">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="LOGINSInROLES">
+              <PropertyRef Name="Login_LoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_LoginRoles_dbo_ROLES_Role_RoleId">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LOGINSInROLES" Type="Self.LOGINSInROLES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="LOGINSInROLES">
+              <PropertyRef Name="Role_RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OBJETIVO_PERSONAS">
+          <End Role="PERSONAS" Type="Self.PERSONAS" Multiplicity="1" />
+          <End Role="OBJETIVO" Type="Self.OBJETIVO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONAS">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="OBJETIVO">
+              <PropertyRef Name="FkPersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OBJETIVO_TIPOOBJETIVO">
+          <End Role="TIPOOBJETIVO" Type="Self.TIPOOBJETIVO" Multiplicity="1" />
+          <End Role="OBJETIVO" Type="Self.OBJETIVO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPOOBJETIVO">
+              <PropertyRef Name="TipoObjetivoId" />
+            </Principal>
+            <Dependent Role="OBJETIVO">
+              <PropertyRef Name="FkTipoObjetivoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRESUPUESTO_PERSONAS">
+          <End Role="PERSONAS" Type="Self.PERSONAS" Multiplicity="1" />
+          <End Role="PRESUPUESTO" Type="Self.PRESUPUESTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONAS">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="PRESUPUESTO">
+              <PropertyRef Name="FkPersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRANSACCIONES_COMERCIOS">
+          <End Role="COMERCIOS" Type="Self.COMERCIOS" Multiplicity="0..1" />
+          <End Role="TRANSACCIONES" Type="Self.TRANSACCIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMERCIOS">
+              <PropertyRef Name="ComercioId" />
+            </Principal>
+            <Dependent Role="TRANSACCIONES">
+              <PropertyRef Name="FkIdComercio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRANSACCIONES_COMPROBANTES">
+          <End Role="COMPROBANTES" Type="Self.COMPROBANTES" Multiplicity="1" />
+          <End Role="TRANSACCIONES" Type="Self.TRANSACCIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPROBANTES">
+              <PropertyRef Name="ComprobanteId" />
+            </Principal>
+            <Dependent Role="TRANSACCIONES">
+              <PropertyRef Name="FkIdComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRANSACCIONES_PERSONAS">
+          <End Role="PERSONAS" Type="Self.PERSONAS" Multiplicity="1" />
+          <End Role="TRANSACCIONES" Type="Self.TRANSACCIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONAS">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="TRANSACCIONES">
+              <PropertyRef Name="FkIdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRANSACCIONES_TIPOTRANSACCION">
+          <End Role="TIPOTRANSACCION" Type="Self.TIPOTRANSACCION" Multiplicity="1" />
+          <End Role="TRANSACCIONES" Type="Self.TRANSACCIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPOTRANSACCION">
+              <PropertyRef Name="TipoTransaccionId" />
+            </Principal>
+            <Dependent Role="TRANSACCIONES">
+              <PropertyRef Name="FkIdTipoTransaccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_getLoginRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="roleName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_getRolesForLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loginName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_isLoginInRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loginName" Type="varchar" Mode="In" />
+          <Parameter Name="roleName" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="EasyBudgetModelStoreContainer">
+          <EntitySet Name="COMERCIOS" EntityType="Self.COMERCIOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMPROBANTES" EntityType="Self.COMPROBANTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOGINS" EntityType="Self.LOGINS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOGINSInROLES" EntityType="Self.LOGINSInROLES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OBJETIVO" EntityType="Self.OBJETIVO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PERSONAS" EntityType="Self.PERSONAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRESUPUESTO" EntityType="Self.PRESUPUESTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLES" EntityType="Self.ROLES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPOOBJETIVO" EntityType="Self.TIPOOBJETIVO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPOTRANSACCION" EntityType="Self.TIPOTRANSACCION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRANSACCIONES" EntityType="Self.TRANSACCIONES" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__COMPROBAN__FkPer__4316F928" Association="Self.FK__COMPROBAN__FkPer__4316F928">
+            <End Role="PERSONAS" EntitySet="PERSONAS" />
+            <End Role="COMPROBANTES" EntitySet="COMPROBANTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PERSONAS__FkLogi__398D8EEE" Association="Self.FK__PERSONAS__FkLogi__398D8EEE">
+            <End Role="LOGINS" EntitySet="LOGINS" />
+            <End Role="PERSONAS" EntitySet="PERSONAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMERCIOS_PERSONAS" Association="Self.FK_COMERCIOS_PERSONAS">
+            <End Role="PERSONAS" EntitySet="PERSONAS" />
+            <End Role="COMERCIOS" EntitySet="COMERCIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_LoginRoles_dbo_LOGINS_Login_LoginId" Association="Self.FK_dbo_LoginRoles_dbo_LOGINS_Login_LoginId">
+            <End Role="LOGINS" EntitySet="LOGINS" />
+            <End Role="LOGINSInROLES" EntitySet="LOGINSInROLES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_LoginRoles_dbo_ROLES_Role_RoleId" Association="Self.FK_dbo_LoginRoles_dbo_ROLES_Role_RoleId">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="LOGINSInROLES" EntitySet="LOGINSInROLES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OBJETIVO_PERSONAS" Association="Self.FK_OBJETIVO_PERSONAS">
+            <End Role="PERSONAS" EntitySet="PERSONAS" />
+            <End Role="OBJETIVO" EntitySet="OBJETIVO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OBJETIVO_TIPOOBJETIVO" Association="Self.FK_OBJETIVO_TIPOOBJETIVO">
+            <End Role="TIPOOBJETIVO" EntitySet="TIPOOBJETIVO" />
+            <End Role="OBJETIVO" EntitySet="OBJETIVO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRESUPUESTO_PERSONAS" Association="Self.FK_PRESUPUESTO_PERSONAS">
+            <End Role="PERSONAS" EntitySet="PERSONAS" />
+            <End Role="PRESUPUESTO" EntitySet="PRESUPUESTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRANSACCIONES_COMERCIOS" Association="Self.FK_TRANSACCIONES_COMERCIOS">
+            <End Role="COMERCIOS" EntitySet="COMERCIOS" />
+            <End Role="TRANSACCIONES" EntitySet="TRANSACCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRANSACCIONES_COMPROBANTES" Association="Self.FK_TRANSACCIONES_COMPROBANTES">
+            <End Role="COMPROBANTES" EntitySet="COMPROBANTES" />
+            <End Role="TRANSACCIONES" EntitySet="TRANSACCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRANSACCIONES_PERSONAS" Association="Self.FK_TRANSACCIONES_PERSONAS">
+            <End Role="PERSONAS" EntitySet="PERSONAS" />
+            <End Role="TRANSACCIONES" EntitySet="TRANSACCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRANSACCIONES_TIPOTRANSACCION" Association="Self.FK_TRANSACCIONES_TIPOTRANSACCION">
+            <End Role="TIPOTRANSACCION" EntitySet="TIPOTRANSACCION" />
+            <End Role="TRANSACCIONES" EntitySet="TRANSACCIONES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EasyBudgetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EasyBudgetContext" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_getLoginRole" ReturnType="Collection(String)">
+          <Parameter Name="roleName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_getRolesForLogin" ReturnType="Collection(String)">
+          <Parameter Name="loginName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_isLoginInRole">
+            <Parameter Name="loginName" Mode="In" Type="String" />
+            <Parameter Name="roleName" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="COMPROBANTES" EntityType="EasyBudgetModel.COMPROBANTE" />
+          <EntitySet Name="LOGINS" EntityType="EasyBudgetModel.LOGIN" />
+          <EntitySet Name="PERSONAS" EntityType="EasyBudgetModel.PERSONA" />
+          <EntitySet Name="ROLES" EntityType="EasyBudgetModel.ROLE" />
+          <EntitySet Name="TIPOOBJETIVOes" EntityType="EasyBudgetModel.TIPOOBJETIVO" />
+          <EntitySet Name="TIPOTRANSACCIONs" EntityType="EasyBudgetModel.TIPOTRANSACCION" />
+          <AssociationSet Name="FK__COMPROBAN__FkPer__4316F928" Association="EasyBudgetModel.FK__COMPROBAN__FkPer__4316F928">
+            <End Role="PERSONA" EntitySet="PERSONAS" />
+            <End Role="COMPROBANTE" EntitySet="COMPROBANTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PERSONAS__FkLogi__398D8EEE" Association="EasyBudgetModel.FK__PERSONAS__FkLogi__398D8EEE">
+            <End Role="LOGIN" EntitySet="LOGINS" />
+            <End Role="PERSONA" EntitySet="PERSONAS" />
+          </AssociationSet>
+          <AssociationSet Name="LOGINSInROLES" Association="EasyBudgetModel.LOGINSInROLES">
+            <End Role="LOGIN" EntitySet="LOGINS" />
+            <End Role="ROLE" EntitySet="ROLES" />
+          </AssociationSet>
+          <EntitySet Name="COMERCIOS" EntityType="EasyBudgetModel.COMERCIO" />
+          <AssociationSet Name="FK_COMERCIOS_PERSONAS" Association="EasyBudgetModel.FK_COMERCIOS_PERSONAS">
+            <End Role="PERSONA" EntitySet="PERSONAS" />
+            <End Role="COMERCIO" EntitySet="COMERCIOS" />
+          </AssociationSet>
+          <EntitySet Name="PRESUPUESTOes" EntityType="EasyBudgetModel.PRESUPUESTO" />
+          <AssociationSet Name="FK_PRESUPUESTO_PERSONAS" Association="EasyBudgetModel.FK_PRESUPUESTO_PERSONAS">
+            <End Role="PERSONA" EntitySet="PERSONAS" />
+            <End Role="PRESUPUESTO" EntitySet="PRESUPUESTOes" />
+          </AssociationSet>
+          <EntitySet Name="OBJETIVOes" EntityType="EasyBudgetModel.OBJETIVO" />
+          <AssociationSet Name="FK_OBJETIVO_PERSONAS" Association="EasyBudgetModel.FK_OBJETIVO_PERSONAS">
+            <End Role="PERSONA" EntitySet="PERSONAS" />
+            <End Role="OBJETIVO" EntitySet="OBJETIVOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OBJETIVO_TIPOOBJETIVO" Association="EasyBudgetModel.FK_OBJETIVO_TIPOOBJETIVO">
+            <End Role="TIPOOBJETIVO" EntitySet="TIPOOBJETIVOes" />
+            <End Role="OBJETIVO" EntitySet="OBJETIVOes" />
+          </AssociationSet>
+          <EntitySet Name="TRANSACCIONES" EntityType="EasyBudgetModel.TRANSACCIONE" />
+          <AssociationSet Name="FK_TRANSACCIONES_COMERCIOS" Association="EasyBudgetModel.FK_TRANSACCIONES_COMERCIOS">
+            <End Role="COMERCIO" EntitySet="COMERCIOS" />
+            <End Role="TRANSACCIONE" EntitySet="TRANSACCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRANSACCIONES_COMPROBANTES" Association="EasyBudgetModel.FK_TRANSACCIONES_COMPROBANTES">
+            <End Role="COMPROBANTE" EntitySet="COMPROBANTES" />
+            <End Role="TRANSACCIONE" EntitySet="TRANSACCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRANSACCIONES_PERSONAS" Association="EasyBudgetModel.FK_TRANSACCIONES_PERSONAS">
+            <End Role="PERSONA" EntitySet="PERSONAS" />
+            <End Role="TRANSACCIONE" EntitySet="TRANSACCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRANSACCIONES_TIPOTRANSACCION" Association="EasyBudgetModel.FK_TRANSACCIONES_TIPOTRANSACCION">
+            <End Role="TIPOTRANSACCION" EntitySet="TIPOTRANSACCIONs" />
+            <End Role="TRANSACCIONE" EntitySet="TRANSACCIONES" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="COMPROBANTE">
+          <Key>
+            <PropertyRef Name="ComprobanteId" />
+          </Key>
+          <Property Name="ComprobanteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComprobanteUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FkPersonaId" Type="Int32" />
+          <NavigationProperty Name="PERSONA" Relationship="EasyBudgetModel.FK__COMPROBAN__FkPer__4316F928" FromRole="COMPROBANTE" ToRole="PERSONA" />
+          <NavigationProperty Name="TRANSACCIONES" Relationship="EasyBudgetModel.FK_TRANSACCIONES_COMPROBANTES" FromRole="COMPROBANTE" ToRole="TRANSACCIONE" />
+        </EntityType>
+        <EntityType Name="LOGIN">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginUsername" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="LoginPassword" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PERSONAS" Relationship="EasyBudgetModel.FK__PERSONAS__FkLogi__398D8EEE" FromRole="LOGIN" ToRole="PERSONA" />
+          <NavigationProperty Name="ROLES" Relationship="EasyBudgetModel.LOGINSInROLES" FromRole="LOGIN" ToRole="ROLE" />
+        </EntityType>
+        <EntityType Name="PERSONA">
+          <Key>
+            <PropertyRef Name="PersonaId" />
+          </Key>
+          <Property Name="PersonaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonaNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonaApellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonaFechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PersonaOcupacion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PersonaPais" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FkLoginId" Type="Int32" />
+          <NavigationProperty Name="COMPROBANTES" Relationship="EasyBudgetModel.FK__COMPROBAN__FkPer__4316F928" FromRole="PERSONA" ToRole="COMPROBANTE" />
+          <NavigationProperty Name="LOGIN" Relationship="EasyBudgetModel.FK__PERSONAS__FkLogi__398D8EEE" FromRole="PERSONA" ToRole="LOGIN" />
+          <NavigationProperty Name="COMERCIOS" Relationship="EasyBudgetModel.FK_COMERCIOS_PERSONAS" FromRole="PERSONA" ToRole="COMERCIO" />
+          <NavigationProperty Name="PRESUPUESTOes" Relationship="EasyBudgetModel.FK_PRESUPUESTO_PERSONAS" FromRole="PERSONA" ToRole="PRESUPUESTO" />
+          <NavigationProperty Name="OBJETIVOes" Relationship="EasyBudgetModel.FK_OBJETIVO_PERSONAS" FromRole="PERSONA" ToRole="OBJETIVO" />
+          <NavigationProperty Name="TRANSACCIONES" Relationship="EasyBudgetModel.FK_TRANSACCIONES_PERSONAS" FromRole="PERSONA" ToRole="TRANSACCIONE" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LOGINS" Relationship="EasyBudgetModel.LOGINSInROLES" FromRole="ROLE" ToRole="LOGIN" />
+        </EntityType>
+        <EntityType Name="TIPOOBJETIVO">
+          <Key>
+            <PropertyRef Name="TipoObjetivoId" />
+          </Key>
+          <Property Name="TipoObjetivoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoObjetivoDescripcion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OBJETIVOes" Relationship="EasyBudgetModel.FK_OBJETIVO_TIPOOBJETIVO" FromRole="TIPOOBJETIVO" ToRole="OBJETIVO" />
+        </EntityType>
+        <EntityType Name="TIPOTRANSACCION">
+          <Key>
+            <PropertyRef Name="TipoTransaccionId" />
+          </Key>
+          <Property Name="TipoTransaccionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransaccionDescripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TRANSACCIONES" Relationship="EasyBudgetModel.FK_TRANSACCIONES_TIPOTRANSACCION" FromRole="TIPOTRANSACCION" ToRole="TRANSACCIONE" />
+        </EntityType>
+        <Association Name="FK__COMPROBAN__FkPer__4316F928">
+          <End Type="EasyBudgetModel.PERSONA" Role="PERSONA" Multiplicity="0..1" />
+          <End Type="EasyBudgetModel.COMPROBANTE" Role="COMPROBANTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="COMPROBANTE">
+              <PropertyRef Name="FkPersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PERSONAS__FkLogi__398D8EEE">
+          <End Type="EasyBudgetModel.LOGIN" Role="LOGIN" Multiplicity="0..1" />
+          <End Type="EasyBudgetModel.PERSONA" Role="PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOGIN">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="PERSONA">
+              <PropertyRef Name="FkLoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LOGINSInROLES">
+          <End Type="EasyBudgetModel.LOGIN" Role="LOGIN" Multiplicity="*" />
+          <End Type="EasyBudgetModel.ROLE" Role="ROLE" Multiplicity="*" />
+        </Association>
+        <EntityType Name="COMERCIO">
+          <Key>
+            <PropertyRef Name="ComercioId" />
+          </Key>
+          <Property Name="ComercioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FkPersonaId" Type="Int32" Nullable="false" />
+          <Property Name="ComercioNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ComercioUbicacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PERSONA" Relationship="EasyBudgetModel.FK_COMERCIOS_PERSONAS" FromRole="COMERCIO" ToRole="PERSONA" />
+          <NavigationProperty Name="TRANSACCIONES" Relationship="EasyBudgetModel.FK_TRANSACCIONES_COMERCIOS" FromRole="COMERCIO" ToRole="TRANSACCIONE" />
+        </EntityType>
+        <Association Name="FK_COMERCIOS_PERSONAS">
+          <End Type="EasyBudgetModel.PERSONA" Role="PERSONA" Multiplicity="1" />
+          <End Type="EasyBudgetModel.COMERCIO" Role="COMERCIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="COMERCIO">
+              <PropertyRef Name="FkPersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PRESUPUESTO">
+          <Key>
+            <PropertyRef Name="PresupuestoId" />
+          </Key>
+          <Property Name="PresupuestoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FkPersonaId" Type="Int32" Nullable="false" />
+          <Property Name="Salario" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Mes" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Año" Type="Int32" Nullable="false" />
+          <Property Name="Dia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PERSONA" Relationship="EasyBudgetModel.FK_PRESUPUESTO_PERSONAS" FromRole="PRESUPUESTO" ToRole="PERSONA" />
+          <Property Name="SalarioInicial" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK_PRESUPUESTO_PERSONAS">
+          <End Type="EasyBudgetModel.PERSONA" Role="PERSONA" Multiplicity="1" />
+          <End Type="EasyBudgetModel.PRESUPUESTO" Role="PRESUPUESTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="PRESUPUESTO">
+              <PropertyRef Name="FkPersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OBJETIVO">
+          <Key>
+            <PropertyRef Name="ObjetivoId" />
+          </Key>
+          <Property Name="ObjetivoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FkTipoObjetivoId" Type="Int32" Nullable="false" />
+          <Property Name="FkPersonaId" Type="Int32" Nullable="false" />
+          <Property Name="ObjetivoFechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ObjetivoFechaFin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ObjetivoDescripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ObjetivoCompleto" Type="Boolean" Nullable="false" />
+          <Property Name="ObjetivoValor" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ObjetivoFechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="PERSONA" Relationship="EasyBudgetModel.FK_OBJETIVO_PERSONAS" FromRole="OBJETIVO" ToRole="PERSONA" />
+          <NavigationProperty Name="TIPOOBJETIVO" Relationship="EasyBudgetModel.FK_OBJETIVO_TIPOOBJETIVO" FromRole="OBJETIVO" ToRole="TIPOOBJETIVO" />
+        </EntityType>
+        <Association Name="FK_OBJETIVO_PERSONAS">
+          <End Type="EasyBudgetModel.PERSONA" Role="PERSONA" Multiplicity="1" />
+          <End Type="EasyBudgetModel.OBJETIVO" Role="OBJETIVO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="OBJETIVO">
+              <PropertyRef Name="FkPersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OBJETIVO_TIPOOBJETIVO">
+          <End Type="EasyBudgetModel.TIPOOBJETIVO" Role="TIPOOBJETIVO" Multiplicity="1" />
+          <End Type="EasyBudgetModel.OBJETIVO" Role="OBJETIVO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPOOBJETIVO">
+              <PropertyRef Name="TipoObjetivoId" />
+            </Principal>
+            <Dependent Role="OBJETIVO">
+              <PropertyRef Name="FkTipoObjetivoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TRANSACCIONE">
+          <Key>
+            <PropertyRef Name="TransaccionId" />
+          </Key>
+          <Property Name="TransaccionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransaccionDescripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TransaccionValor" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="TransaccionFecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TransaccionFechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FkIdPersona" Type="Int32" Nullable="false" />
+          <Property Name="FkIdComercio" Type="Int32" />
+          <Property Name="FkIdComprobante" Type="Int32" Nullable="false" />
+          <Property Name="FkIdTipoTransaccion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="COMERCIO" Relationship="EasyBudgetModel.FK_TRANSACCIONES_COMERCIOS" FromRole="TRANSACCIONE" ToRole="COMERCIO" />
+          <NavigationProperty Name="COMPROBANTE" Relationship="EasyBudgetModel.FK_TRANSACCIONES_COMPROBANTES" FromRole="TRANSACCIONE" ToRole="COMPROBANTE" />
+          <NavigationProperty Name="PERSONA" Relationship="EasyBudgetModel.FK_TRANSACCIONES_PERSONAS" FromRole="TRANSACCIONE" ToRole="PERSONA" />
+          <NavigationProperty Name="TIPOTRANSACCION" Relationship="EasyBudgetModel.FK_TRANSACCIONES_TIPOTRANSACCION" FromRole="TRANSACCIONE" ToRole="TIPOTRANSACCION" />
+        </EntityType>
+        <Association Name="FK_TRANSACCIONES_COMERCIOS">
+          <End Type="EasyBudgetModel.COMERCIO" Role="COMERCIO" Multiplicity="0..1" />
+          <End Type="EasyBudgetModel.TRANSACCIONE" Role="TRANSACCIONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMERCIO">
+              <PropertyRef Name="ComercioId" />
+            </Principal>
+            <Dependent Role="TRANSACCIONE">
+              <PropertyRef Name="FkIdComercio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRANSACCIONES_COMPROBANTES">
+          <End Type="EasyBudgetModel.COMPROBANTE" Role="COMPROBANTE" Multiplicity="1" />
+          <End Type="EasyBudgetModel.TRANSACCIONE" Role="TRANSACCIONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPROBANTE">
+              <PropertyRef Name="ComprobanteId" />
+            </Principal>
+            <Dependent Role="TRANSACCIONE">
+              <PropertyRef Name="FkIdComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRANSACCIONES_PERSONAS">
+          <End Type="EasyBudgetModel.PERSONA" Role="PERSONA" Multiplicity="1" />
+          <End Type="EasyBudgetModel.TRANSACCIONE" Role="TRANSACCIONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="TRANSACCIONE">
+              <PropertyRef Name="FkIdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRANSACCIONES_TIPOTRANSACCION">
+          <End Type="EasyBudgetModel.TIPOTRANSACCION" Role="TIPOTRANSACCION" Multiplicity="1" />
+          <End Type="EasyBudgetModel.TRANSACCIONE" Role="TRANSACCIONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPOTRANSACCION">
+              <PropertyRef Name="TipoTransaccionId" />
+            </Principal>
+            <Dependent Role="TRANSACCIONE">
+              <PropertyRef Name="FkIdTipoTransaccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EasyBudgetModelStoreContainer" CdmEntityContainer="EasyBudgetContext">
+          <FunctionImportMapping FunctionImportName="sp_getLoginRole" FunctionName="EasyBudgetModel.Store.sp_getLoginRole" />
+          <FunctionImportMapping FunctionImportName="sp_getRolesForLogin" FunctionName="EasyBudgetModel.Store.sp_getRolesForLogin" />
+          <FunctionImportMapping FunctionImportName="sp_isLoginInRole" FunctionName="EasyBudgetModel.Store.sp_isLoginInRole" />
+          <EntitySetMapping Name="COMPROBANTES">
+            <EntityTypeMapping TypeName="EasyBudgetModel.COMPROBANTE">
+              <MappingFragment StoreEntitySet="COMPROBANTES">
+                <ScalarProperty Name="FkPersonaId" ColumnName="FkPersonaId" />
+                <ScalarProperty Name="ComprobanteUrl" ColumnName="ComprobanteUrl" />
+                <ScalarProperty Name="ComprobanteId" ColumnName="ComprobanteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOGINS">
+            <EntityTypeMapping TypeName="EasyBudgetModel.LOGIN">
+              <MappingFragment StoreEntitySet="LOGINS">
+                <ScalarProperty Name="LoginPassword" ColumnName="LoginPassword" />
+                <ScalarProperty Name="LoginUsername" ColumnName="LoginUsername" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERSONAS">
+            <EntityTypeMapping TypeName="EasyBudgetModel.PERSONA">
+              <MappingFragment StoreEntitySet="PERSONAS">
+                <ScalarProperty Name="FkLoginId" ColumnName="FkLoginId" />
+                <ScalarProperty Name="PersonaPais" ColumnName="PersonaPais" />
+                <ScalarProperty Name="PersonaOcupacion" ColumnName="PersonaOcupacion" />
+                <ScalarProperty Name="PersonaFechaNacimiento" ColumnName="PersonaFechaNacimiento" />
+                <ScalarProperty Name="PersonaApellido" ColumnName="PersonaApellido" />
+                <ScalarProperty Name="PersonaNombre" ColumnName="PersonaNombre" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLES">
+            <EntityTypeMapping TypeName="EasyBudgetModel.ROLE">
+              <MappingFragment StoreEntitySet="ROLES">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPOOBJETIVOes">
+            <EntityTypeMapping TypeName="EasyBudgetModel.TIPOOBJETIVO">
+              <MappingFragment StoreEntitySet="TIPOOBJETIVO">
+                <ScalarProperty Name="TipoObjetivoDescripcion" ColumnName="TipoObjetivoDescripcion" />
+                <ScalarProperty Name="TipoObjetivoId" ColumnName="TipoObjetivoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPOTRANSACCIONs">
+            <EntityTypeMapping TypeName="EasyBudgetModel.TIPOTRANSACCION">
+              <MappingFragment StoreEntitySet="TIPOTRANSACCION">
+                <ScalarProperty Name="TransaccionDescripcion" ColumnName="TransaccionDescripcion" />
+                <ScalarProperty Name="TipoTransaccionId" ColumnName="TipoTransaccionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="LOGINSInROLES" TypeName="EasyBudgetModel.LOGINSInROLES" StoreEntitySet="LOGINSInROLES">
+            <EndProperty Name="ROLE">
+              <ScalarProperty Name="RoleId" ColumnName="Role_RoleId" />
+            </EndProperty>
+            <EndProperty Name="LOGIN">
+              <ScalarProperty Name="LoginId" ColumnName="Login_LoginId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="COMERCIOS">
+            <EntityTypeMapping TypeName="EasyBudgetModel.COMERCIO">
+              <MappingFragment StoreEntitySet="COMERCIOS">
+                <ScalarProperty Name="ComercioUbicacion" ColumnName="ComercioUbicacion" />
+                <ScalarProperty Name="ComercioNombre" ColumnName="ComercioNombre" />
+                <ScalarProperty Name="FkPersonaId" ColumnName="FkPersonaId" />
+                <ScalarProperty Name="ComercioId" ColumnName="ComercioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRESUPUESTOes">
+            <EntityTypeMapping TypeName="EasyBudgetModel.PRESUPUESTO">
+              <MappingFragment StoreEntitySet="PRESUPUESTO">
+                <ScalarProperty Name="SalarioInicial" ColumnName="SalarioInicial" />
+                <ScalarProperty Name="Dia" ColumnName="Dia" />
+                <ScalarProperty Name="Año" ColumnName="Año" />
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+                <ScalarProperty Name="Salario" ColumnName="Salario" />
+                <ScalarProperty Name="FkPersonaId" ColumnName="FkPersonaId" />
+                <ScalarProperty Name="PresupuestoId" ColumnName="PresupuestoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OBJETIVOes">
+            <EntityTypeMapping TypeName="EasyBudgetModel.OBJETIVO">
+              <MappingFragment StoreEntitySet="OBJETIVO">
+                <ScalarProperty Name="ObjetivoFechaModificacion" ColumnName="ObjetivoFechaModificacion" />
+                <ScalarProperty Name="ObjetivoValor" ColumnName="ObjetivoValor" />
+                <ScalarProperty Name="ObjetivoCompleto" ColumnName="ObjetivoCompleto" />
+                <ScalarProperty Name="ObjetivoDescripcion" ColumnName="ObjetivoDescripcion" />
+                <ScalarProperty Name="ObjetivoFechaFin" ColumnName="ObjetivoFechaFin" />
+                <ScalarProperty Name="ObjetivoFechaInicio" ColumnName="ObjetivoFechaInicio" />
+                <ScalarProperty Name="FkPersonaId" ColumnName="FkPersonaId" />
+                <ScalarProperty Name="FkTipoObjetivoId" ColumnName="FkTipoObjetivoId" />
+                <ScalarProperty Name="ObjetivoId" ColumnName="ObjetivoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRANSACCIONES">
+            <EntityTypeMapping TypeName="EasyBudgetModel.TRANSACCIONE">
+              <MappingFragment StoreEntitySet="TRANSACCIONES">
+                <ScalarProperty Name="FkIdTipoTransaccion" ColumnName="FkIdTipoTransaccion" />
+                <ScalarProperty Name="FkIdComprobante" ColumnName="FkIdComprobante" />
+                <ScalarProperty Name="FkIdComercio" ColumnName="FkIdComercio" />
+                <ScalarProperty Name="FkIdPersona" ColumnName="FkIdPersona" />
+                <ScalarProperty Name="TransaccionFechaModificacion" ColumnName="TransaccionFechaModificacion" />
+                <ScalarProperty Name="TransaccionFecha" ColumnName="TransaccionFecha" />
+                <ScalarProperty Name="TransaccionValor" ColumnName="TransaccionValor" />
+                <ScalarProperty Name="TransaccionDescripcion" ColumnName="TransaccionDescripcion" />
+                <ScalarProperty Name="TransaccionId" ColumnName="TransaccionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,139 @@
+﻿
+@{
+	ViewBag.Title = "Pantalla Principal";
+}
+
+<div class="col-sm-12 d-flex">
+	<div class="panel shadow-sm">
+		<i class="p-3 fa fa-dollar fa-2x"></i>
+		<div class="float-right">
+			<h4><strong>₡ @ViewBag.Presupuesto</strong></h4>
+			<span>Presupuesto inicial</span>
+		</div>
+	</div>
+	<div class="panel shadow-sm">
+		<i class="p-3 fa fa-thumbs-up fa-2x"></i>
+		<div class="float-right">
+			<h4><b>₡ @ViewBag.Ingresos</b></h4>
+			<span>Ingresos</span>
+		</div>
+	</div>
+	<div class="panel shadow-sm">
+		<i class="p-3 fa fa-thumbs-down fa-2x"></i>
+		<div class="float-right">
+			<h4><b>₡ -@ViewBag.Gastos</b></h4>
+			<span>Gastos</span>
+		</div>
+	</div>
+	<div class="panel shadow-sm">
+		<i class="p-3 fa fa-refresh fa-2x"></i>
+		<div class="float-right">
+			<h4><b>@ViewBag.Movimientos</b></h4>
+			<span>Movimientos</span>
+		</div>
+	</div>
+</div>
+
+
+<div class="card mt-2">
+	<div class="card-header">
+		<h2 class="page-title float-left">Presupuesto Anual</h2>
+	</div>
+	<div class="card-body">
+		<div class="col-sm-12 col-md-12">
+			<div class="d-flex float-right">
+				@Html.DropDownList("Anios", new SelectList(ViewBag.Anios, "Años"), " Seleccionar Año ", new { @class = "form-control" })
+			</div>
+			<canvas id="chart1" width="300" height="100"></canvas>
+		</div>
+	</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        loadTable();
+		cambiarMes();
+    });
+
+    var chart1;
+    var salarios = @Html.Raw(Json.Encode(ViewBag.Salarios));
+	
+    function cambiarMes() {
+
+        $('#Anios').change(function () {
+            var AnioSeleccionado = $('#Anios option:selected').text();
+            $.ajax({
+                url: "/Dashboard/CambiarAnio",
+                type: "POST",
+                data: { anio: AnioSeleccionado },
+                success: function (data) {
+                    console.log("Exito");
+
+                    salarios = data[1];
+                    meses = data[0];
+                    anio = AnioSeleccionado;
+
+                    actualizar(anio, meses, salarios);
+                },
+                error: function (data) {
+                    console.log("Error");
+                    console.log(data);
+                }
+            });
+        });
+    }
+
+    function loadTable() {
+        salarios = @Html.Raw(Json.Encode(ViewBag.Salarios));
+		meses = @Html.Raw(Json.Encode(ViewBag.Meses));
+		anio = @Html.Raw(Json.Encode(ViewBag.Anio));
+
+        var ctx = document.getElementById("chart1");
+
+        var data = {
+            labels: meses,
+			datasets: [
+				{
+			        data: salarios,
+				    backgroundColor: "blue",
+				    borderColor: "lightblue",
+				    borderWidth: 2,
+				    fill: false,
+				    lineTension: 0,
+				    pointRadius: 5
+                }
+			]
+        };
+
+        var options = {
+            title: {
+                display: true,
+				position: "top",
+				text: "Presupuesto de " + anio,
+                fontSize: 18,
+                fontColor: "#111"
+            },
+			legend: { display: false },
+            scales: {
+                yAxes: [{
+                    ticks: { beginAtZero: true }
+                }]
+            }
+        };
+
+        chart1 = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: options
+        });
+
+    }
+
+    function actualizar(unAnio, losMeses, variosSalarios) {
+		chart1.data.datasets[0].data = variosSalarios;
+		chart1.data.datasets.label = losMeses;
+        chart1.data.labels = losMeses;
+		chart1.options.title.text = "Presupuesto de " + unAnio;
+        chart1.update();
+    }
+</script>
